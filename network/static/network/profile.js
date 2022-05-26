@@ -208,7 +208,7 @@ load_posts = (posts, num, username) => {
                         })
                     })
 
-                    load_posts_page(num)
+                    load_posts(num)
                 })
                 div.append(like)
             }
