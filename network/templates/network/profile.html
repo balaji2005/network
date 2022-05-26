@@ -1,0 +1,16 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/script2.js' %}"></script>   
+{% endblock %}
+
+{% block body %}
+    <div id="profile-page" class="pages">
+        <h4>{{ username }}</h4>
+        <b>Followers: </b><span id="follower-count"></span><br>
+        <b>Following: </b><span id="following-count"></span>
+        <button class="btn btn-outline-primary" id="follow-button" style="display: none;"></button>
+        <div id="posts"></div>
+    </div>
+{% endblock %}

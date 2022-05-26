@@ -1,0 +1,25 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/script1.js' %}"></script>   
+{% endblock %}
+
+{% block body %}
+    <div id="posts-page" class="pages">
+        {% if user.is_authenticated %}
+            <div class="post-div">
+                <h4 style="margin-bottom: 15px;">New Post</h4>
+                <form id="new-post" method="post" onsubmit="new_post()">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea required autofocus class="form-control" id="post-content" placeholder="Content"></textarea>
+                    </div>
+                    <input id="send-post" type="submit" class="btn btn-primary" value="Post" />
+                </form>
+            </div>
+        {% endif %}
+        <div id="posts">
+        </div>
+    </div>
+{% endblock %}
