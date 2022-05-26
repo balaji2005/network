@@ -24,5 +24,6 @@ class Post(models.Model):
             "poster": self.poster.username,
             "content": self.content,
             "timestamp": self.timestamp.strftime("%b %d %Y, %I:%M %p"),
+            "likers": [liker.username for liker in self.likes.all()],
             "likes": len(self.likes.all())
         }
