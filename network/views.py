@@ -103,14 +103,21 @@ def edit_post(request, id):
 
     return JsonResponse({"message": "Posted successfully."}, status=201)
 
-def posts(request, num):
+def posts(request, username, num):
     posts = Post.objects.all().order_by("-timestamp").all()
     paginator = Paginator(posts, 10)
     posts = paginator.page(num).object_list
+    sending_posts = [post.serialize() for post in posts]
+    for post in sending_posts:
+        if username in post["likers"]:
+            post["liked"] = 1
+        else:
+            post["liked"] = 0
+    
     return JsonResponse({
-        'posts': [post.serialize() for post in posts],
+        'posts': sending_posts,
         'previous': paginator.page(num).has_previous(),
-        'next': paginator.page(num).has_next()
+        'next': paginator.page(num).has_next(),
     })
 
 @csrf_exempt
@@ -160,7 +167,7 @@ def profile_page(request, username):
     })
 
 @login_required
-def following_posts(request, num):
+def following_posts(request, username, num):
     user = request.user
     followingUsers = user.followingUser.all()
     print(followingUsers)
@@ -171,6 +178,13 @@ def following_posts(request, num):
     posts = posts.order_by("-timestamp").all()
     paginator = Paginator(posts, 10)
     posts = paginator.page(num).object_list
+    sending_posts = [post.serialize() for post in posts]
+    for post in sending_posts:
+        if username in post["likers"]:
+            post["liked"] = 1
+        else:
+            post["liked"] = 0
+    
     return JsonResponse({
         'posts': [post.serialize() for post in posts],
         'previous': paginator.page(num).has_previous(),

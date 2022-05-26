@@ -1,0 +1,282 @@
+let page_num = 1
+let username = ''
+
+document.addEventListener('DOMContentLoaded', () => {
+    const index = document.querySelector('#posts-link')
+    const following = document.querySelector('#following-link')
+    index.innerHTML = 'All Posts'
+    following.innerHTML = 'Following'
+    const div = document.querySelector('#profile-page')
+    try{
+        username = document.querySelector('#username').innerHTML
+        console.log(username)
+        const posts = document.querySelector('#posts')
+
+        load_data(username)
+        load_posts(posts, page_num, username)
+        document.querySelector('#next').addEventListener('click', () => {
+            console.log('Clicked')
+            load_posts(posts, page_num+1, username)
+            page_num += 1
+        })
+        document.querySelector('#previous').addEventListener('click', () => {
+            load_posts(posts, page_num-1, username)
+            page_num -= 1
+        })
+    } catch(e) {
+        div.innerHTML = 'Please log in to view the posts'
+    }
+})
+
+// load_posts = (posts, num) => {
+//     posts.innerHTML = ''
+//     username1 = document.querySelector('h4').innerHTML
+//     console.log(num)
+//     fetch(`/profile-api/${username1}/${num}`)
+//     .then(response => response.json())
+//     .then(data => {
+//         console.log(data.posts)
+//         data.posts.forEach(post => {
+//             console.log(post)
+//             const div = document.createElement('div')
+//             div.className = 'post-div'
+//             const b = document.createElement('b')
+//             const a1 = document.createElement('a')
+//             a1.innerHTML = post.poster
+//             a1.className = 'profile-link'
+//             a1.href = `/profile/${post.poster}`
+//             b.append(a1)
+//             div.append(b)
+//             div.innerHTML += `<div id="content-${post.id}">${post.content}</div>${post.timestamp}<br><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg> ${post.likes}`
+//             div.style.marginRight = '0'
+//             div.style.marginLeft = '0'
+//             posts.append(div)
+//             if (username === post.poster) {
+//                 console.log(post.poster)
+//                 const a2 = document.createElement('button')
+//                 a2.className = 'btn btn-outline-primary'
+//                 a2.innerHTML = 'Edit'
+//                 a2.addEventListener('click', () => {
+//                     const text = document.createElement('textarea')
+//                     text.id = `content${post.id}`
+//                     text.className = 'form-control'
+//                     text.innerHTML = post.content
+//                     const save = document.createElement('button')
+//                     save.className = 'btn btn-outline-primary'
+//                     save.innerHTML = 'Save'
+//                     save.onclick = () => {
+//                         const content = document.querySelector(`#content${post.id}`).value
+//                         fetch('/new-post', {
+//                             method: 'POST',
+//                             body: JSON.stringify({
+//                                 content: content
+//                             })
+//                         })
+//                         .then(response => response.json())
+//                         .then(result => {
+//                             console.log(result);
+//                         });
+//                         a2.style.display = 'block'
+//                         document.querySelector(`#content-${post.id}`).innerHTML = content
+//                     }
+//                     document.querySelector(`#content-${post.id}`).innerHTML = '<br>'
+//                     document.querySelector(`#content-${post.id}`).append(text)
+//                     document.querySelector(`#content-${post.id}`).innerHTML += '<br>'
+//                     document.querySelector(`#content-${post.id}`).append(save)
+//                     a2.style.display = 'none'
+//                 })
+//                 div.innerHTML += '<br>'
+//                 div.append(a2)
+//             }
+//         })
+//         if (!data.previous && !data.next) {
+//             document.querySelector('#nav').style.display = 'none'
+//         } else if (!data.previous) {
+//             document.querySelector('#nav').style.display = 'block'
+//             document.querySelector('#previous').style.display = 'none'
+//             document.querySelector('#next').style.display = 'block'
+//             document.querySelector('#next-button').addEventListener('click', () => {
+//                 posts.innerHTML = ''
+//                 load_posts(posts, num+1)
+//                 posts.innerHTML = ''
+//             })
+//         } else if (!data.next) {
+//             document.querySelector('#nav').style.display = 'block'
+//             document.querySelector('#previous').style.display = 'block'
+//             document.querySelector('#next').style.display = 'none'
+//             document.querySelector('#previous-button').addEventListener('click', () => {
+//                 posts.innerHTML = ''
+//                 load_posts(posts, num-1)
+//                 posts.innerHTML = ''
+//             })
+//         } else {
+//             document.querySelector('#previous').style.display = 'block'
+//             document.querySelector('#nav').style.display = 'block'
+//             document.querySelector('#next-button').addEventListener('click', () => {
+//                 posts.innerHTML = ''
+//                 load_posts(posts, num+1)
+//                 posts.innerHTML = ''
+//             })
+//             document.querySelector('#previous-button').addEventListener('click', () => {
+//                 posts.innerHTML = ''
+//                 load_posts(posts, num-1)
+//                 posts.innerHTML = ''
+//             })
+//         }
+//     })
+// }
+
+load_posts = (posts, num, username) => {
+    posts.innerHTML = ''
+    username1 = document.querySelector('h4').innerHTML
+    fetch(`/profile-api/${username1}/${num}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.posts.length)
+        data.posts.forEach(post => {
+            const div = document.createElement('div')
+            div.className = 'post-div'
+            const b = document.createElement('b')
+            const a1 = document.createElement('a')
+            a1.innerHTML = post.poster
+            a1.className = 'profile-link'
+            a1.href = `/profile/${post.poster}`
+            b.append(a1)
+            div.append(b)
+            div.innerHTML += `<div id="content-${post.id}">${post.content}</div>${post.timestamp}<br><svg id="post-like-${post.id}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg> ${post.likes}<br>`
+            document.querySelector('#posts').append(div)
+            document.querySelector(`#post-like-${post.id}`).addEventListener('click', () => {
+                fetch(`posts/like/${post.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        like: 1
+                    })
+                })
+            })
+            console.log(username)
+            if (username === post.poster) {
+                const a2 = document.createElement('button')
+                a2.className = 'btn btn-outline-primary'
+                a2.innerHTML = 'Edit'
+                a2.addEventListener('click', () => {
+                    const text = document.createElement('textarea')
+                    text.id = `content${post.id}`
+                    text.className = 'form-control'
+                    text.innerHTML = post.content
+                    const save = document.createElement('button')
+                    save.className = 'btn btn-outline-primary'
+                    save.innerHTML = 'Save'
+                    save.onclick = () => {
+                        const content = document.querySelector(`#content${post.id}`).value
+                        fetch(`/edit-post/${post.id}`, {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                content: content
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log(result);
+                        });
+                        a2.style.display = 'block'
+                        document.querySelector(`#content-${post.id}`).innerHTML = content
+                    }
+                    document.querySelector(`#content-${post.id}`).innerHTML = '<br>'
+                    document.querySelector(`#content-${post.id}`).append(text)
+                    document.querySelector(`#content-${post.id}`).innerHTML += '<br>'
+                    document.querySelector(`#content-${post.id}`).append(save)
+                    a2.style.display = 'none'
+                })
+                div.innerHTML += '<br>'
+                div.append(a2)
+            } else {
+                const like = document.createElement('button')
+                console.log(post.id)
+                console.log(post.liked)
+                if(post.liked === 1){
+                    like.className = 'btn btn-primary'
+                    like.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-down-fill" viewBox="0 0 16 16"><path d="M6.956 14.534c.065.936.952 1.659 1.908 1.42l.261-.065a1.378 1.378 0 0 0 1.012-.965c.22-.816.533-2.512.062-4.51.136.02.285.037.443.051.713.065 1.669.071 2.516-.211.518-.173.994-.68 1.2-1.272a1.896 1.896 0 0 0-.234-1.734c.058-.118.103-.242.138-.362.077-.27.113-.568.113-.856 0-.29-.036-.586-.113-.857a2.094 2.094 0 0 0-.16-.403c.169-.387.107-.82-.003-1.149a3.162 3.162 0 0 0-.488-.9c.054-.153.076-.313.076-.465a1.86 1.86 0 0 0-.253-.912C13.1.757 12.437.28 11.5.28H8c-.605 0-1.07.08-1.466.217a4.823 4.823 0 0 0-.97.485l-.048.029c-.504.308-.999.61-2.068.723C2.682 1.815 2 2.434 2 3.279v4c0 .851.685 1.433 1.357 1.616.849.232 1.574.787 2.132 1.41.56.626.914 1.28 1.039 1.638.199.575.356 1.54.428 2.591z"></path></svg>Dislike'
+                } else {
+                    like.className = 'btn btn-outline-primary'
+                    like.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-thumbs-up" viewBox="0 0 16 16"><path d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2.144 2.144 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a9.84 9.84 0 0 0-.443.05 9.365 9.365 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111L8.864.046zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a8.908 8.908 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.224 2.224 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.866.866 0 0 1-.121.416c-.165.288-.503.56-1.066.56z"></path></svg>Like'
+                }
+                    like.addEventListener('click', () => {
+                    fetch(`/posts/${post.id}/like`, {
+                        method: 'PUT',
+                        body: JSON.stringify({
+                            like: 1
+                        })
+                    })
+
+                    load_posts_page(num)
+                })
+                div.append(like)
+            }
+        })
+        console.log(data)
+        if (!data.previous && !data.next) {
+            document.querySelector('#nav').style.display = 'none'
+            document.querySelector('#previous').style.display = 'none'
+            document.querySelector('#next').style.display = 'none'
+        } else if (!data.previous && data.next) {
+            document.querySelector('#nav').style.display = 'block'
+            document.querySelector('#previous').style.display = 'none'
+            document.querySelector('#next').style.display = 'block'
+            // document.querySelector('#next').addEventListener('click', () => {
+            //     console.log('Clicked')
+            //     load_posts_page(num+1)
+            // })
+        } else if (!data.next  && data.previous) {
+            document.querySelector('#nav').style.display = 'block'
+            document.querySelector('#previous').style.display = 'block'
+            document.querySelector('#next').style.display = 'none'
+            // document.querySelector('#previous').addEventListener('click', () => {
+            //     load_posts_page(num-1)
+            // })
+        } else if (data.previous && data.next) {
+            document.querySelector('#nav').style.display = 'block'
+            document.querySelector('#previous').style.display = 'block'
+            document.querySelector('#next').style.display = 'block'
+            // document.querySelector('#next').addEventListener('click', () => {
+            //     load_posts_page(num+1)
+            // })
+            // document.querySelector('#previous').addEventListener('click', () => {
+            //     load_posts_page(num-1)
+            // })
+        }
+    })
+}
+
+const num0 = 1
+
+load_data = (username) => {
+    fetch(`/profile-api/${username}/${num0}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data)
+        document.querySelector('#follower-count').innerHTML = data.follower
+        document.querySelector('#following-count').innerHTML = data.following
+        const follow = data.follow
+        const button = document.querySelector('#follow-button')
+        if (follow === 1) {
+            button.innerHTML = 'Follow'
+            button.value = 1
+            button.style.display = 'block'
+        } else if (follow === 2) {
+            button.innerHTML = 'Unfollow'
+            button.value = 0
+            button.style.display = 'block'
+        }
+        button.onclick = () => {
+            console.log(button.value)
+            fetch(`/profile-api/${username}/1`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    follow: button.value
+                })
+            })
+            console.log('getting data')
+            load_data(username)
+        }
+    })
+}
