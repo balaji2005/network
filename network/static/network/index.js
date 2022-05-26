@@ -102,8 +102,13 @@ load_posts_page = num => {
                             like: 1
                         })
                     })
-
-                    load_posts_page(num)
+                    if(post.liked === 1){
+                        // div.innerHTML -= `${post.likes}<br>`
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
+                    } else {
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
+                    }
+                    // load_posts_page(num)
                 })
                 div.append(like)
             }

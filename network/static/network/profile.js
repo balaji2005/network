@@ -111,11 +111,10 @@ load_posts = (posts, num, username) => {
                         })
                     })
                     if(post.liked === 1){
-                        div.innerHTML -= `${post.likes}<br>`
-                        div.innerHTML += `${post.likes - 1}<br>`
+                        // div.innerHTML -= `${post.likes}<br>`
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
                     } else {
-                        div.innerHTML -= `${post.likes}<br>`
-                        div.innerHTML += `${post.likes + 1}<br>`
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
                     }
                     // load_posts(num)
                 })
@@ -190,6 +189,11 @@ load_data = (username) => {
     })
 }
 
+// subtract = a,b => {
+//     var x = a.replace('Hullabalooo', '')
+//     return x
+// }
+// 
 // like = {
     
 // }
