@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(username)
         const posts = document.querySelector('#posts')
 
-        load_data(username)
+        load_data(username, div)
         load_posts(posts, page_num, username)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
@@ -160,7 +160,7 @@ load_posts = (posts, num, username) => {
 
 const num0 = 1
 
-load_data = (username) => {
+load_data = (username, div) => {
     fetch(`/profile-api/${username}/${num0}`)
     .then(response => response.json())
     .then(data => {
