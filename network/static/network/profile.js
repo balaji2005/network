@@ -189,6 +189,7 @@ load_data = (username) => {
             console.log('getting data')
             load_data(username)
         }
+        div.append(button)
     })
 }
 
