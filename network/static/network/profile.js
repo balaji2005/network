@@ -92,6 +92,7 @@ load_posts = (posts, num, username) => {
                 console.log(div.innerHTML)
                 div.innerHTML +=   `${post.likes}<br>`
                 console.log(div.innerHTML)
+                console.log(post.liked)
                 if(post.liked === 1){
                     console.log("Hullabalooo")
                     like.className = 'btn btn-primary'
