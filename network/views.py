@@ -126,12 +126,12 @@ def posts(request, username, num):
 # API Route to get Profile of a user
 @csrf_exempt
 def profile(request, username, num):
-    print(request.user)
-    print(request.user)
-    print(request.user)
-    print(request.user)
-    print(request.user)
-    print(request.user)
+    print(request.user.username)
+    print(request.user.username)
+    print(request.user.username)
+    print(request.user.username)
+    print(request.user.username)
+    print(request.user.username)
     print(request.user)
     username = username.strip()
     user = User.objects.get(username = username)
