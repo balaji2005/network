@@ -127,6 +127,12 @@ def posts(request, username, num):
 @csrf_exempt
 def profile(request, username, num):
     print(request.user)
+    print(request.user)
+    print(request.user)
+    print(request.user)
+    print(request.user)
+    print(request.user)
+    print(request.user)
     username = username.strip()
     user = User.objects.get(username = username)
     print(user.follower.all(), 'getting data')
