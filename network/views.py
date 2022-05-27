@@ -125,7 +125,7 @@ def posts(request, username, num):
 
 # API Route to get Profile of a user
 @csrf_exempt
-def profile(request, username, num):
+def profile(request, user_username, poster_username, num):
     username = username.strip()
     user = User.objects.get(username = username)
     print(user.follower.all(), 'getting data')
@@ -147,7 +147,8 @@ def profile(request, username, num):
             'posts': [post.serialize() for post in posts],
             'follow': follow,
             'previous': paginator.page(num).has_previous(),
-            'next': paginator.page(num).has_next()
+            'next': paginator.page(num).has_next(),
+            'liked': 1
 
         })
     elif request.method == 'PUT':
