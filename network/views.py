@@ -67,6 +67,7 @@ def register(request):
     else:
         return render(request, "network/register.html")
 
+# API Route to add a new post
 @csrf_exempt
 @login_required
 def new_post(request):
@@ -87,6 +88,7 @@ def new_post(request):
 
     return JsonResponse({"message": "Posted successfully."}, status=201)
 
+# API Route to edit a post
 @csrf_exempt
 @login_required
 def edit_post(request, id):
@@ -103,6 +105,7 @@ def edit_post(request, id):
 
     return JsonResponse({"message": "Posted successfully."}, status=201)
 
+# API Route to get posts
 def posts(request, username, num):
     posts = Post.objects.all().order_by("-timestamp").all()
     paginator = Paginator(posts, 10)
@@ -120,6 +123,7 @@ def posts(request, username, num):
         'next': paginator.page(num).has_next(),
     })
 
+# API Route to get Profile of a user
 @csrf_exempt
 def profile(request, username, num):
     username = username.strip()
@@ -161,11 +165,13 @@ def profile(request, username, num):
         print(user.follower.all(), 'following or unfollowing')
         return HttpResponse(status=204)
 
+# Page to get Profile of a user
 def profile_page(request, username):
     return render(request, 'network/profile.html', {
         'username': username
     })
 
+# API Route to get Following
 @login_required
 def following_posts(request, username, num):
     user = request.user
@@ -191,10 +197,12 @@ def following_posts(request, username, num):
         'next': paginator.page(num).has_next()
     })
 
+# Page to get Following users' posts
 @login_required
 def following_page(request):
     return render(request, 'network/following.html')
 
+# API Route to Like a post
 @csrf_exempt
 @login_required
 def like(request, id):
@@ -208,6 +216,9 @@ def like(request, id):
         post.save()
         return HttpResponse(status=204)
 
+# API Route to Follow a user
+def follow():
+    pass
 # fetch(`/emails/${email.id}`, {
 # method: 'PUT',
 # body: JSON.stringify({
