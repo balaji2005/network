@@ -168,6 +168,7 @@ load_data = (username) => {
         document.querySelector('#follower-count').innerHTML = data.follower
         document.querySelector('#following-count').innerHTML = data.following
         const follow = data.follow
+        console.log(data.follow)
         const button = document.querySelector('#follow-button')
         if (follow === 1) {
             button.innerHTML = 'Follow'
