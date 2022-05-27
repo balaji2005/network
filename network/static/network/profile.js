@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 load_posts = (posts, num, username) => {
     posts.innerHTML = ''
     username1 = document.querySelector('h4').innerHTML
-    fetch(`/profile-api/${username}/${username1}/${num}`)
+    fetch(`/profile-api/${username1}/${num}`)
     .then(response => response.json())
     .then(data => {
         console.log(data.posts.length)
