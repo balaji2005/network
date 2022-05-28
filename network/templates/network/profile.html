@@ -10,8 +10,9 @@
         <h4>{{ username }}</h4>
         <b>Followers: </b><span id="follower-count"></span><br>
         <b>Following: </b><span id="following-count"></span>
-        <form id="follow-form">
+        <form id="follow-form" style="width: 30px;">
             {% csrf_token %}
+            <input type="hidden" id="follow_value">
             <submit class="btn btn-outline-primary" id="follow-button" style="display: none;"></button>
         </form>
         <div id="posts"></div>

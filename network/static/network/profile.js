@@ -201,27 +201,27 @@ load_data = (username, div) => {
         console.log(data.follow)
         const follow_form = document.querySelector('#follow-form')
         const button = document.querySelector('#follow-button')
+        const follow_value = document.querySelector('#follow_value')
         if (follow === 1) {
             button.innerHTML = 'Follow'
-            button.value = 1
+            follow_value.value = 1
             button.style.display = 'block'
         } else if (follow === 2) {
             button.innerHTML = 'Unfollow'
-            button.value = 0
+            follow_value.value = 0
             button.style.display = 'block'
         }
         follow_form.onsubmit = () => {
-            console.log(button.value)
+            console.log(follow_value.value)
             fetch(`/profile-api/${username}/1`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    follow: button.value
+                    follow: follow_value.value
                 })
             })
             console.log('getting data')
-            load_data(username)
+            load_data(username, div)
         }
-        div.append(button)
     })
 }
 
