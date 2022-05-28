@@ -20,6 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
         following.innerHTML = 'Following'
         if(username != ''){
             load_posts_page(1)
+            document.querySelector('#next').addEventListener('click', () => {
+                load_posts(posts, page_num+1, username)
+                page_num += 1
+            })
+            document.querySelector('#previous').addEventListener('click', () => {
+                load_posts(posts, page_num-1, username)
+                page_num -= 1
+            })
         } else {
             div.innerHTML = 'Please log in to view the posts'
         }
@@ -33,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 load_posts_page = num => {
-
+    
     document.querySelector('#posts').innerHTML = ''
 
     fetch(`/posts-page/${username}/${num}`)
@@ -109,7 +117,6 @@ load_posts_page = num => {
                 }
 
                 like_checkbox.addEventListener('change', () => {
-                    console.log('before');
                     setTimeout(function(){
                         load_posts_page(num)
                     },500);
@@ -119,20 +126,11 @@ load_posts_page = num => {
                             like: 1
                         })
                     })
-                    // if(post_liked === 1){
-                    //     // div.innerHTML -= `${post.likes}<br>`
-                    //     div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
-                    //     buttons = document.querySelectorAll('#like_button')
-                    //     buttons.forEach(button => {
-                    //         button.removeEventListener('click', liking(div, post_id, post_liked, post_likes))
-                    //         console.log(button.innerText.trim())
-                    //         button.addEventListener('click', liking(div, post_id, post_liked, post_likes))
-                    //     })
-                    // } else {
-                    //     div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes + 1}<br>`)
-                    //     div.innerHTML = div.innerHTML.replace(like_button_html, dislike_button_html)
-                    // }
-                    console.log('liked')
+                    if(post_liked === 1){
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
+                    } else {
+                        div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
+                    }
                     // if(post.liked === 1){
                     //     post.liked = 0
                     //     console.log(post.liked)
@@ -151,8 +149,6 @@ load_posts_page = num => {
                     // }
                     // console.log(like_checkbox.checked)
                     y = window.scrollY
-                    console.log(`y before re-loading the page = ${y}`)
-                    console.log(`window.scrollY before re-loading the page = ${window.scrollY}`)
 
                 })
 
@@ -175,44 +171,40 @@ load_posts_page = num => {
                 // div.append(like)
             }
         })
-        if (!data.previous && !data.next) {
-            document.querySelector('#nav').style.display = 'none'
-            document.querySelector('#previous').style.display = 'none'
-            document.querySelector('#next').style.display = 'none'
-        } else if (!data.previous) {
-            document.querySelector('#nav').style.display = 'block'
-            document.querySelector('#previous').style.display = 'none'
-            document.querySelector('#next').style.display = 'block'
-            document.querySelector('#next').addEventListener('click', () => {
-                console.log('Clicked')
-                load_posts_page(num+1)
-            })
-        } else if (!data.next) {
-            document.querySelector('#nav').style.display = 'block'
-            document.querySelector('#previous').style.display = 'block'
-            document.querySelector('#next').style.display = 'none'
-            document.querySelector('#previous').addEventListener('click', () => {
-                load_posts_page(num-1)
-            })
-        } else {
-            document.querySelector('#nav').style.display = 'block'
-            document.querySelector('#previous').style.display = 'block'
-            document.querySelector('#nav').style.display = 'block'
-            document.querySelector('#next').addEventListener('click', () => {
-                load_posts_page(num+1)
-            })
-            document.querySelector('#previous').addEventListener('click', () => {
-                load_posts_page(num-1)
-            })
-        }
+        // if (!data.previous && !data.next) {
+        //     document.querySelector('#nav').style.display = 'none'
+        //     document.querySelector('#previous').style.display = 'none'
+        //     document.querySelector('#next').style.display = 'none'
+        // } else if (!data.previous) {
+        //     document.querySelector('#nav').style.display = 'block'
+        //     document.querySelector('#previous').style.display = 'none'
+        //     document.querySelector('#next').style.display = 'block'
+        //     document.querySelector('#next').addEventListener('click', () => {
+        //         console.log('Clicked')
+        //         load_posts_page(num+1)
+        //     })
+        // } else if (!data.next) {
+        //     document.querySelector('#nav').style.display = 'block'
+        //     document.querySelector('#previous').style.display = 'block'
+        //     document.querySelector('#next').style.display = 'none'
+        //     document.querySelector('#previous').addEventListener('click', () => {
+        //         load_posts_page(num-1)
+        //     })
+        // } else {
+        //     document.querySelector('#nav').style.display = 'block'
+        //     document.querySelector('#previous').style.display = 'block'
+        //     document.querySelector('#nav').style.display = 'block'
+        //     document.querySelector('#next').addEventListener('click', () => {
+        //         load_posts_page(num+1)
+        //     })
+        //     document.querySelector('#previous').addEventListener('click', () => {
+        //         load_posts_page(num-1)
+        //     })
+        // }
     })
-
-    console.log(`scroll=${window.scrollY}`)
-    console.log(`y=${y}`)
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
     },500);
-    console.log(`scroll=${window.scrollY}`)
 }
 
 new_post = () => {
@@ -230,28 +222,4 @@ new_post = () => {
     });
 
     load_posts_page(1)
-}
-
-liking = (div, post_id, post_liked, post_likes) => {
-    console.log('liked')
-    fetch(`/posts/${post_id}/like`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            like: 1
-        })
-    })
-    if(post_liked === 1){
-        // div.innerHTML -= `${post.likes}<br>`
-        div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes - 1}<br>`)
-        div.innerHTML = div.innerHTML.replace(dislike_button_html, like_button_html)
-        buttons = document.querySelectorAll('#like_button')
-        buttons.forEach(button => {
-            button.removeEventListener('click', liking(div, post_id, post_liked, post_likes))
-            console.log(button.innerText.trim())
-            button.addEventListener('click', liking(div, post_id, post_liked, post_likes))
-        })
-    } else {
-        div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes + 1}<br>`)
-        div.innerHTML = div.innerHTML.replace(like_button_html, dislike_button_html)
-    }
 }
