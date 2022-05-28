@@ -104,6 +104,7 @@ load_posts_page = num => {
                 }
 
                 like_checkbox.addEventListener('change', () => {
+                    console.log('liked')
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',
                         body: JSON.stringify({
