@@ -27,9 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.innerHTML += 'Please log in to view the posts'
     }
     setTimeout(function(){
-        console.log('Scrolling')
-        window.scrollTo(0, 1999)
-        console.log('Scrolled')
+        window.scrollTo(window.scrollX, y)
     },500);
     
 })
@@ -211,7 +209,9 @@ load_posts_page = num => {
 
     console.log(`scroll=${window.scrollY}`)
     console.log(`y=${y}`)
-    window.scrollTo(window.scrollX, y)
+    setTimeout(function(){
+        window.scrollTo(window.scrollX, y)
+    },500);
     console.log(`scroll=${window.scrollY}`)
 }
 
