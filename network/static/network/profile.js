@@ -45,7 +45,6 @@ load_posts = (posts, num, username) => {
     fetch(`/profile-api/${username1}/${num}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data.posts.length)
         data.posts.forEach(post => {
             const div = document.createElement('div')
             div.className = 'post-div'
@@ -196,12 +195,11 @@ load_data = (username, div) => {
     fetch(`/profile-api/${username}/${num0}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         document.querySelector('#follower-count').innerHTML = data.follower
         document.querySelector('#following-count').innerHTML = data.following
         const follow = data.follow
         console.log(data.follow)
-        const button = document.querySelector('#follow-button')
+        const follow_form = document.querySelector('#follow-form')
         if (follow === 1) {
             button.innerHTML = 'Follow'
             button.value = 1
@@ -211,7 +209,7 @@ load_data = (username, div) => {
             button.value = 0
             button.style.display = 'block'
         }
-        button.onclick = () => {
+        follow_form.onsubmit = () => {
             console.log(button.value)
             fetch(`/profile-api/${username}/1`, {
                 method: 'PUT',
