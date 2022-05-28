@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const following = document.querySelector('#following-link')
     index.innerHTML = 'All Posts'
     following.innerHTML = '<span id="selected">Following</span>'
+
     try{
         username = document.querySelector('#username').innerHTML
         console.log(username)
@@ -26,14 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
             page_num -= 1
         })
     } catch(e) {
-        following_page.innerHTML = 'Please log in to view the posts'
+        following_page.innerHTML += 'Please log in to view the posts'
     }
+
     console.log(username)
 })
 
 load_posts = (posts, num, username) => {
     posts.innerHTML = ''
     console.log(num)
+    
     fetch(`/posts/following-page/${num}`)
     .then(response => response.json())
     .then(data => {
