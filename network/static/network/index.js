@@ -109,15 +109,15 @@ load_posts_page = num => {
                 like_checkbox.addEventListener('change', () => {
                     console.log('before');
                     setTimeout(function(){
-                        console.log('after');
+                        fetch(`/posts/${post.id}/like`, {
+                            method: 'PUT',
+                            body: JSON.stringify({
+                                like: 1
+                            })
+                        })
+                        load_posts_page(num)
                     },500);
                     console.log('liked')
-                    fetch(`/posts/${post.id}/like`, {
-                        method: 'PUT',
-                        body: JSON.stringify({
-                            like: 1
-                        })
-                    })
                     // if(post.liked === 1){
                     //     post.liked = 0
                     //     console.log(post.liked)
@@ -138,7 +138,6 @@ load_posts_page = num => {
                     y = window.scrollY
                     console.log(`y before re-loading the page = ${y}`)
                     console.log(`window.scrollY before re-loading the page = ${window.scrollY}`)
-                    load_posts_page(num)
 
                 })
 
