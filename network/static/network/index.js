@@ -128,7 +128,8 @@ load_posts_page = num => {
                     // }
                     // console.log(like_checkbox.checked)
                     y = window.scrollY
-                    console.log(window.scrollY)
+                    console.log(`y before re-loading the page = ${y}`)
+                    console.log(`window.scrollY before re-loading the page = ${window.scrollY}`)
                     load_posts_page(num)
 
                 })
