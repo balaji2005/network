@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } catch(e) {
         div.innerHTML += 'Please log in to view the posts'
     }
-    window.scroll(window.scrollX, 199)
+    window.scrollTo(0, 1999)
 })
 
 load_posts_page = num => {
