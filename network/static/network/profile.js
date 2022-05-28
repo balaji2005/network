@@ -200,6 +200,7 @@ load_data = (username, div) => {
         const follow = data.follow
         console.log(data.follow)
         const follow_form = document.querySelector('#follow-form')
+        const button = document.querySelector('#follow-button')
         if (follow === 1) {
             button.innerHTML = 'Follow'
             button.value = 1
