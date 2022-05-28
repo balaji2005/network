@@ -27,10 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
         div.innerHTML += 'Please log in to view the posts'
     }
     window.scroll(window.scrollX, y)
+    y=1555
 })
 
 load_posts_page = num => {
+
     document.querySelector('#posts').innerHTML = ''
+
     fetch(`/posts-page/${username}/${num}`)
     .then(response => response.json())
     .then(data => {
@@ -104,6 +107,10 @@ load_posts_page = num => {
                 }
 
                 like_checkbox.addEventListener('change', () => {
+                    console.log('before');
+                    setTimeout(function(){
+                        console.log('after');
+                    },500);
                     console.log('liked')
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',
@@ -185,9 +192,10 @@ load_posts_page = num => {
             })
         }
     })
+
     console.log(`scroll=${window.scrollY}`)
     console.log(`y=${y}`)
-    window.scroll(0, y)
+    window.scroll(window.scrollX, y)
     console.log(`scroll=${window.scrollY}`)
 }
 
@@ -208,26 +216,26 @@ new_post = () => {
     load_posts_page(1)
 }
 
-liking = (div, post_id, post_liked, post_likes) => {
-    console.log('liked')
-    fetch(`/posts/${post_id}/like`, {
-        method: 'PUT',
-        body: JSON.stringify({
-            like: 1
-        })
-    })
-    if(post_liked === 1){
-        // div.innerHTML -= `${post.likes}<br>`
-        div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes - 1}<br>`)
-        div.innerHTML = div.innerHTML.replace(dislike_button_html, like_button_html)
-        buttons = document.querySelectorAll('#like_button')
-        buttons.forEach(button => {
-            button.removeEventListener('click', liking(div, post_id, post_liked, post_likes))
-            console.log(button.innerText.trim())
-            button.addEventListener('click', liking(div, post_id, post_liked, post_likes))
-        })
-    } else {
-        div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes + 1}<br>`)
-        div.innerHTML = div.innerHTML.replace(like_button_html, dislike_button_html)
-    }
-}
+// liking = (div, post_id, post_liked, post_likes) => {
+//     console.log('liked')
+//     fetch(`/posts/${post_id}/like`, {
+//         method: 'PUT',
+//         body: JSON.stringify({
+//             like: 1
+//         })
+//     })
+//     if(post_liked === 1){
+//         // div.innerHTML -= `${post.likes}<br>`
+//         div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes - 1}<br>`)
+//         div.innerHTML = div.innerHTML.replace(dislike_button_html, like_button_html)
+//         buttons = document.querySelectorAll('#like_button')
+//         buttons.forEach(button => {
+//             button.removeEventListener('click', liking(div, post_id, post_liked, post_likes))
+//             console.log(button.innerText.trim())
+//             button.addEventListener('click', liking(div, post_id, post_liked, post_likes))
+//         })
+//     } else {
+//         div.innerHTML = div.innerHTML.replace(`${post_likes}<br>`,`${post_likes + 1}<br>`)
+//         div.innerHTML = div.innerHTML.replace(like_button_html, dislike_button_html)
+//     }
+// }
