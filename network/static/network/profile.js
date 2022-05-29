@@ -12,26 +12,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const following = document.querySelector('#following-link')
     index.innerHTML = 'All Posts'
     following.innerHTML = 'Following'
-    const div = document.querySelector('#profile-page')
+    const page_div = document.querySelector('#profile-page')
 
     try{
         username = document.querySelector('#username').innerHTML
         console.log(username)
-        const posts = document.querySelector('#posts')
+        const posts_div = document.querySelector('#posts')
 
         load_data(username, div)
-        load_posts(posts, page_num, username)
+        load_posts(posts_div, page_num, username)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
-            load_posts(posts, page_num+1, username)
+            load_posts(posts_div, page_num+1, username)
             page_num += 1
         })
         document.querySelector('#previous').addEventListener('click', () => {
-            load_posts(posts, page_num-1, username)
+            load_posts(posts_div, page_num-1, username)
             page_num -= 1
         })
     } catch(e) {
-        div.innerHTML = 'Please log in to view the posts'
+        page_div.innerHTML = 'Please log in to view the posts'
     }
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
@@ -39,24 +39,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-load_posts = (posts, num, username) => {
-    posts.innerHTML = ''
+load_posts = (posts_div, num, username) => {
+    posts_div.innerHTML = ''
     username1 = document.querySelector('h4').innerHTML
     fetch(`/profile-api/${username1}/${num}`)
     .then(response => response.json())
     .then(data => {
         data.posts.forEach(post => {
-            const div = document.createElement('div')
-            div.className = 'post-div'
+            const post_div = document.createElement('div')
+            post_div.className = 'post-div'
             const b = document.createElement('b')
             const a1 = document.createElement('a')
             a1.innerHTML = post.poster
             a1.className = 'profile-link'
             a1.href = `/profile/${post.poster}`
             b.append(a1)
-            div.append(b)
-            div.innerHTML += `<div id="content-${post.id}">${post.content}</div>${post.timestamp}<br><svg id="post-like-${post.id}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg> `
-            document.querySelector('#posts').append(div)
+            post_div.append(b)
+            post_div.innerHTML += `<div id="content-${post.id}">${post.content}</div>${post.timestamp}<br><svg id="post-like-${post.id}" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-suit-heart-fill" viewBox="0 0 16 16"><path d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1z"/></svg> `
+            posts_div.append(div)
             if (username === post.poster) {
                 const a2 = document.createElement('button')
                 a2.className = 'btn btn-outline-primary'
