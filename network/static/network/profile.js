@@ -222,13 +222,6 @@ load_data = (username) => {
             console.log("User is same as the person")
         }
         follow_form.onsubmit = () => {
-            console.log(follow_value.value)
-            fetch(`/profile-api/${username}/1`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    follow: follow_value.value
-                })
-            })
             console.log('getting data')
             load_data(username)
         }
