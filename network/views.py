@@ -152,7 +152,6 @@ def profile(request, username, num):
             'previous': paginator.page(num).has_previous(),
             'next': paginator.page(num).has_next(),
             'liked': 1
-
         })
     elif request.method == 'PUT':
         data = json.loads(request.body)

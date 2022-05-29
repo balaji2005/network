@@ -21,8 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const posts_div = document.querySelector('#posts')
         poster_username = document.querySelector('#poster-username').innerHTML
 
-        load_data(poster_username, page_div)
+        load_data(poster_username, posts_div)
         load_posts(posts_div, page_num, poster_username)
+        console.log(`load_data(${poster_username}, ${posts_div}), load_posts(${posts_div}, ${page_num}, ${poster_username})`)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
             load_posts(posts_div, page_num+1, poster_username)
