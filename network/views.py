@@ -164,11 +164,12 @@ def profile_page(request, username):
 @login_required
 def following_posts(request, num):
     username = request.user.username
-    print(request.user)
-    user = User.objects.get(username = username)
+    print(username)
+    user = request.user
     followingUsers = user.followingUser.all()
     print(followingUsers)
     posts = user.posts.none()
+    print(f'posts={posts}')
     for following in followingUsers:
         print(following.posts.all())
         posts = posts.union(following.posts.all())
@@ -181,6 +182,7 @@ def following_posts(request, num):
             post["liked"] = 1
         else:
             post["liked"] = 0
+        print(post['liked'])
     
     return JsonResponse({
         'posts': [post.serialize() for post in posts],
