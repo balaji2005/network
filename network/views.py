@@ -127,6 +127,7 @@ def posts(request, username, num):
 def profile(request, username, num):
     print(f'Is {request.user} following {username}')
     print(type(request.user))
+    print(request.user.username)
     print(type(request.user.username))
     username = username.strip()
     user = User.objects.get(username = username)
