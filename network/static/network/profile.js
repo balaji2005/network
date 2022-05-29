@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             page_num -= 1
         })
     } catch(e) {
+        console.log(e)
         page_div.innerHTML = 'Please log in to view the posts'
     }
     setTimeout(function(){
