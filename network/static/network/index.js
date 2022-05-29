@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             div.innerHTML = 'Please log in to view the posts'
         }
     } catch(e) {
+        console.log(e)
         div.innerHTML += 'Please log in to view the posts'
     }
     setTimeout(function(){
