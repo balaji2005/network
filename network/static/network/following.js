@@ -102,7 +102,7 @@ load_posts = (posts, num, username) => {
                 like_checkbox.className = 'form-check-input'
                 like_checkbox.type = 'checkbox'
                 like_checkbox.id = 'flexSwitchCheckChecked'
-
+                console.log(post.liked)
                 if(post.liked === 1){
                     like_checkbox.checked = true
                 } else {
