@@ -91,8 +91,8 @@ load_posts = (posts_div, num, username) => {
                     document.querySelector(`#content-${post.id}`).append(save)
                     a2.style.display = 'none'
                 })
-                div.innerHTML += `${post.likes}<br>`
-                div.append(a2)
+                post_div.innerHTML += `${post.likes}<br>`
+                post_div.append(a2)
             } else {
                 const dive = document.createElement('div')
                 dive.className = 'form-check form-switch'
