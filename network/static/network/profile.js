@@ -17,12 +17,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try{
         user_username = document.querySelector('#username').innerHTML
-        console.log(username)
+        console.log(user_username)
         const posts_div = document.querySelector('#posts')
         poster_username = document.querySelector('#poster-username').innerHTML
 
-        load_data(poster_username, posts_div)
+        load_data(poster_username)
+        console.log('Printing Posts')
         load_posts(posts_div, page_num, poster_username)
+        console.log('Printed Posts')
         console.log(`load_data(${poster_username}, ${posts_div}), load_posts(${posts_div}, ${page_num}, ${poster_username})`)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
@@ -194,7 +196,7 @@ load_posts = (posts_div, num, username) => {
 
 const num0 = 1
 
-load_data = (username, div) => {
+load_data = (username) => {
     fetch(`/profile-api/${username}/${num0}`)
     .then(response => response.json())
     .then(data => {
@@ -227,7 +229,7 @@ load_data = (username, div) => {
                 })
             })
             console.log('getting data')
-            load_data(username, div)
+            load_data(username)
         }
     })
 }
