@@ -151,7 +151,7 @@ load_posts = (posts_div, num, username) => {
                 dive.append(like_label)
                 dive.append(like_checkbox)
 
-                div.append(dive)
+                post_div.append(dive)
             }
         })
         // if (!data.previous && !data.next) {
