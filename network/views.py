@@ -135,7 +135,7 @@ def profile(request, username, num):
     if request.method == 'GET':
         if request.user.username == username:
             follow = 0
-        elif request.user.username not in user.follower.all():
+        elif request.user.username not in [user.username for user in user.follower.all()]:
             follow = 1
         else:
             follow = 2
@@ -213,6 +213,7 @@ def follow(request, username):
     username = username.strip()
     user = User.objects.get(username = username)
     followingUsers = user.followingUser.all()
+    followingUsers = [followingUser.username for followingUser in followingUsers]
     print(followingUsers)
     if request.method == 'POST':
         follow = int(request.POST.get('follow'))
