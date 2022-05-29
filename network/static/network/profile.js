@@ -119,7 +119,7 @@ load_posts = (posts_div, num, username) => {
 
                 like_checkbox.addEventListener('change', () => {
                     setTimeout(function(){
-                        load_posts_page(num)
+                        load_posts(num)
                     },500);
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',
@@ -127,7 +127,7 @@ load_posts = (posts_div, num, username) => {
                             like: 1
                         })
                     })
-                    if(post_liked === 1){
+                    if(post.liked === 1){
                         div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
                     } else {
                         div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
@@ -207,7 +207,7 @@ load_data = (username) => {
         console.log(data.follow)
         const follow_form = document.querySelector('#follow-form')
         const button = document.querySelector('#follow-button')
-        const follow_value = document.querySelector('#follow_value')
+        const follow_value = document.querySelector('#follow')
         if (follow === 1) {
             console.log("User doesn't follow")
             button.innerHTML = 'Follow'
