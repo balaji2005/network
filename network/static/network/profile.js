@@ -204,13 +204,17 @@ load_data = (username, div) => {
         const button = document.querySelector('#follow-button')
         const follow_value = document.querySelector('#follow_value')
         if (follow === 1) {
+            console.log("User doesn't follow")
             button.innerHTML = 'Follow'
             follow_value.value = 1
             button.style.display = 'block'
         } else if (follow === 2) {
+            console.log("User already follows")
             button.innerHTML = 'Unfollow'
             follow_value.value = 0
             button.style.display = 'block'
+        } else {
+            console.log("User is same as the person")
         }
         follow_form.onsubmit = () => {
             console.log(follow_value.value)
