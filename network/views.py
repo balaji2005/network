@@ -153,20 +153,6 @@ def profile(request, username, num):
             'next': paginator.page(num).has_next(),
             'liked': 1
         })
-    elif request.method == 'PUT':
-        data = json.loads(request.body)
-        print(data)
-        if int(data.get('follow')) == 0:
-            print('Unfollowed')
-            user.follower.remove(request.user)
-            request.user.followingUser.remove(user)
-        elif int(data.get('follow')) == 1:
-            print('Followed')
-            user.follower.add(request.user)
-            request.user.followingUser.add(user)
-        user.save()
-        print(user.follower.all(), 'following or unfollowing')
-        return HttpResponse(status=204)
 
 # Page to get Profile of a user
 def profile_page(request, username):
@@ -222,8 +208,25 @@ def like(request, id):
         return HttpResponse(status=204)
 
 # API Route to Follow a user
-def follow():
-    pass
+@login_required
+def follow(request, username):
+    username = username.strip()
+    user = User.objects.get(username = username)
+    followingUsers = user.followingUser.all()
+    if request.method == 'PUT':
+        data = json.loads(request.body)
+        print(data)
+        if int(data.get('follow')) == 0:
+            print('Unfollowed')
+            user.follower.remove(request.user)
+            request.user.followingUser.remove(user)
+        elif int(data.get('follow')) == 1:
+            print('Followed')
+            user.follower.add(request.user)
+            request.user.followingUser.add(user)
+        user.save()
+        print(user.follower.all(), 'following or unfollowing')
+        return HttpResponse(status=204)
 # fetch(`/emails/${email.id}`, {
 # method: 'PUT',
 # body: JSON.stringify({

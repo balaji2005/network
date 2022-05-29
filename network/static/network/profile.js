@@ -18,9 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
     try{
         user_username = document.querySelector('#username').innerHTML
         console.log(user_username)
-        const posts_div = document.querySelector('#posts')
+        const posts_div = document.querySelector('#posts-div')
         poster_username = document.querySelector('#poster-username').innerHTML
-
         load_data(poster_username)
         // console.log('Printing Posts')
         load_posts(posts_div, page_num, poster_username)
