@@ -110,7 +110,7 @@ load_posts = (posts, num, username) => {
 
                 like_checkbox.addEventListener('change', () => {
                     setTimeout(function(){
-                        load_posts_page(num)
+                        load_posts(num)
                     },500);
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',

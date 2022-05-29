@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
 })
 
-load_posts_page = num => {
+load_posts = num => {
     
     document.querySelector('#posts').innerHTML = ''
 
@@ -118,7 +118,7 @@ load_posts_page = num => {
 
                 like_checkbox.addEventListener('change', () => {
                     setTimeout(function(){
-                        load_posts_page(num)
+                        load_posts(num)
                     },500);
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',
@@ -221,5 +221,5 @@ new_post = () => {
         console.log(result);
     });
 
-    load_posts_page(1)
+    load_posts(1)
 }
