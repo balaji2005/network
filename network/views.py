@@ -214,15 +214,16 @@ def follow(request, username):
     user = User.objects.get(username = username)
     followingUsers = user.followingUser.all()
     print(followingUsers)
-    if request.method == 'PUT':
-        # if int(data.get('follow')) == 0:
-        #     print('Unfollowed')
-        #     user.follower.remove(request.user)
-        #     request.user.followingUser.remove(user)
-        # elif int(data.get('follow')) == 1:
-        #     print('Followed')
-        #     user.follower.add(request.user)
-        #     request.user.followingUser.add(user)
+    if request.method == 'POST':
+        follow = int(request.POST.get('follow'))
+        if follow == 0:
+            print('Unfollowed')
+            user.follower.remove(request.user)
+            request.user.followingUser.remove(user)
+        elif follow == 1:
+            print('Followed')
+            user.follower.add(request.user)
+            request.user.followingUser.add(user)
         user.save()
         print(user.follower.all(), 'following or unfollowing')
         return HttpResponse(status=204)
