@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(username)
         const posts_div = document.querySelector('#posts')
 
-        load_data(username, div)
+        load_data(username, page_div)
         load_posts(posts_div, page_num, username)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
