@@ -224,10 +224,10 @@ load_data = (username) => {
         } else {
             console.log("User is same as the person")
         }
-        follow_form.onsubmit = () => {
-            console.log('getting data')
-            load_data(username)
-        }
+        // follow_form.onsubmit = () => {
+        //     console.log('getting data')
+        //     load_data(username)
+        // }
     })
 }
 
