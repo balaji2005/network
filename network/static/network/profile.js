@@ -195,7 +195,7 @@ load_posts = (posts_div, num, username) => {
     })
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
-    },500);
+    },700);
 }
 
 const num0 = 1
