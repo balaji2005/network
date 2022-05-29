@@ -213,17 +213,16 @@ def follow(request, username):
     username = username.strip()
     user = User.objects.get(username = username)
     followingUsers = user.followingUser.all()
+    print(followingUsers)
     if request.method == 'PUT':
-        data = json.loads(request.body)
-        print(data)
-        if int(data.get('follow')) == 0:
-            print('Unfollowed')
-            user.follower.remove(request.user)
-            request.user.followingUser.remove(user)
-        elif int(data.get('follow')) == 1:
-            print('Followed')
-            user.follower.add(request.user)
-            request.user.followingUser.add(user)
+        # if int(data.get('follow')) == 0:
+        #     print('Unfollowed')
+        #     user.follower.remove(request.user)
+        #     request.user.followingUser.remove(user)
+        # elif int(data.get('follow')) == 1:
+        #     print('Followed')
+        #     user.follower.add(request.user)
+        #     request.user.followingUser.add(user)
         user.save()
         print(user.follower.all(), 'following or unfollowing')
         return HttpResponse(status=204)
