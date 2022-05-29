@@ -8,18 +8,19 @@ let y = 0
 
 document.addEventListener('DOMContentLoaded', () => {
     y = window.scrollY
-    const following_page = document.querySelector('#following-page')
+    // const following_page = document.querySelector('#following-page')
     const index_nav = document.querySelector('#posts-link')
     const following_nav = document.querySelector('#following-link')
     const div = document.querySelector('#posts-page')
-
-    index_nav.innerHTML = '<span id="selected">All Posts</span>'
-    following_nav.innerHTML = 'Following'
-
+    
     try{
         username = document.querySelector('#username').innerHTML
         const initial = document.querySelector('#posts-page').innerHTML
-        document.querySelector('#posts-link').onclick = load_posts(1)
+
+        index_nav.innerHTML = '<span id="selected">All Posts</span>'
+        following_nav.innerHTML = 'Following'
+
+        index_nav.onclick = load_posts(1)
         if(username != ''){
             load_posts(1)
             document.querySelector('#next').addEventListener('click', () => {
