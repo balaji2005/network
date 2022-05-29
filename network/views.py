@@ -198,6 +198,7 @@ def following_page(request):
 @login_required
 def like(request, id):
     post = Post.objects.get(id = id)
+    print(f'{request.user} liked/disliked post no.{id}')
     if request.method == 'PUT':
         data = json.loads(request.body)
         if int(data.get('like')) == 1 and request.user not in post.likes.all():
