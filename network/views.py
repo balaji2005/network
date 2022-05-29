@@ -124,9 +124,8 @@ def posts(request, username, num):
     })
 
 # API Route to get Profile of a user
-@csrf_exempt
 def profile(request, username, num):
-    print(f'Is ${request.user} following ${username}')
+    print(f'Is {request.user} following {username}')
     username = username.strip()
     user = User.objects.get(username = username)
     print(user.follower.all(), 'getting data')
