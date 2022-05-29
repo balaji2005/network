@@ -185,7 +185,7 @@ def following_posts(request, num):
         print(post['liked'])
     
     return JsonResponse({
-        'posts': [post.serialize() for post in posts],
+        'posts': [post.serialize() for post in sending_posts],
         'previous': paginator.page(num).has_previous(),
         'next': paginator.page(num).has_next()
     })
