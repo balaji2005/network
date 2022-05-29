@@ -143,15 +143,22 @@ def profile(request, username, num):
         posts = user.posts.all().order_by("-timestamp").all()
         paginator = Paginator(posts, 10)
         posts = paginator.page(num).object_list
+        sending_posts = [post.serialize() for post in posts]
+        for post in sending_posts:
+            if username in post["likers"]:
+                post["liked"] = 1
+            else:
+                post["liked"] = 0
+            print(post['liked'])
+    
         return JsonResponse({
             'username': username,
             'follower': len(user.follower.all()),
             'following': len(user.followingUser.all()),
-            'posts': [post.serialize() for post in posts],
+            'posts': sending_posts,
             'follow': follow,
             'previous': paginator.page(num).has_previous(),
-            'next': paginator.page(num).has_next(),
-            'liked': 1
+            'next': paginator.page(num).has_next()
         })
 
 # Page to get Profile of a user
