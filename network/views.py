@@ -127,13 +127,14 @@ def posts(request, username, num):
 def profile(request, username, num):
     print(f'Is {request.user} following {username}')
     print(type(request.user))
+    print(type(request.user.username))
     username = username.strip()
     user = User.objects.get(username = username)
     print(user.follower.all(), 'getting data')
     if request.method == 'GET':
-        if request.user == username:
+        if request.user.username == username:
             follow = 0
-        elif request.user not in user.follower.all():
+        elif request.user.username not in user.follower.all():
             follow = 1
         else:
             follow = 2
