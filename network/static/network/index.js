@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         index.innerHTML = '<span id="selected">All Posts</span>'
         following.innerHTML = 'Following'
         if(username != ''){
-            load_posts_page(1)
+            load_posts(1)
             document.querySelector('#next').addEventListener('click', () => {
                 load_posts(posts, page_num+1, username)
                 page_num += 1
