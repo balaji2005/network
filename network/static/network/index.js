@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     try{
         username = document.querySelector('#username').innerHTML
         const initial = document.querySelector('#posts-page').innerHTML
-        document.querySelector('#posts-link').onclick = load_posts_page
+        document.querySelector('#posts-link').onclick = load_posts(1)
         index.innerHTML = '<span id="selected">All Posts</span>'
         following.innerHTML = 'Following'
         if(username != ''){
