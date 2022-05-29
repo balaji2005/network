@@ -145,7 +145,7 @@ def profile(request, username, num):
         posts = paginator.page(num).object_list
         sending_posts = [post.serialize() for post in posts]
         for post in sending_posts:
-            if username in post["likers"]:
+            if request.user.username in post["likers"]:
                 post["liked"] = 1
             else:
                 post["liked"] = 0
