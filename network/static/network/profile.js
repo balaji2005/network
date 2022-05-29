@@ -121,12 +121,14 @@ load_posts = (posts_div, num, username) => {
                     setTimeout(function(){
                         load_posts(posts_div, num, username)
                     },500);
+                    console.log('Liking')
                     fetch(`/posts/${post.id}/like`, {
                         method: 'PUT',
                         body: JSON.stringify({
                             like: 1
                         })
                     })
+                    console.log('Liked')
                     if(post.liked === 1){
                         post_div.innerHTML = post_div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
                     } else {
