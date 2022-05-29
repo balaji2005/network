@@ -21,10 +21,10 @@
                             <strong><a href="{% url 'profile-page' user.username %}" class="nav-link" id="username">{{ user.username }}</strong></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'index' %}" id="posts-link" class="links">All Posts</a>
+                            <a class="nav-link" href="{% url 'index' %}" id="posts-link" class="links"><span id="selected">All Posts</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'following' %}" id="following-link" class="links"><span id="selected">Following</span></a>
+                            <a class="nav-link" href="{% url 'following' %}" id="following-link" class="links">Following</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>

@@ -10,10 +10,11 @@ let y = 0
 document.addEventListener('DOMContentLoaded', () => {
     y = window.scrollY
     const following_page = document.querySelector('#following-page')
-    const index = document.querySelector('#posts-link')
-    const following = document.querySelector('#following-link')
-    index.innerHTML = 'All Posts'
-    following.innerHTML = '<span id="selected">Following</span>'
+    const index_nav = document.querySelector('#posts-link')
+    const following_nav = document.querySelector('#following-link')
+
+    index_nav.innerHTML = 'All Posts'
+    following_nav.innerHTML = '<span id="selected">Following</span>'
 
     try{
         username = document.querySelector('#username').innerHTML
