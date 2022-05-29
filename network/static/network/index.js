@@ -126,7 +126,7 @@ load_posts_page = num => {
                             like: 1
                         })
                     })
-                    if(post_liked === 1){
+                    if(post.liked === 1){
                         div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
                     } else {
                         div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
