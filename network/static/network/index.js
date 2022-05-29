@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
-    },500);
+    },700);
     
 })
 
