@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
         poster_username = document.querySelector('#poster-username').innerHTML
 
         load_data(poster_username)
-        console.log('Printing Posts')
+        // console.log('Printing Posts')
         load_posts(posts_div, page_num, poster_username)
-        console.log('Printed Posts')
+        // console.log('Printed Posts')
         console.log(`load_data(${poster_username}, ${posts_div}), load_posts(${posts_div}, ${page_num}, ${poster_username})`)
         document.querySelector('#next').addEventListener('click', () => {
             console.log('Clicked')
@@ -46,11 +46,13 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 load_posts = (posts_div, num, username) => {
+    console.log(`${posts_div}, ${num}, ${username}`)
     posts_div.innerHTML = ''
     fetch(`/profile-api/${poster_username}/${num}`)
     .then(response => response.json())
     .then(data => {
         data.posts.forEach(post => {
+            console.log('Creating')
             const post_div = document.createElement('div')
             post_div.className = 'post-div'
             const b = document.createElement('b')
