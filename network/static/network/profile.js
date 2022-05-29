@@ -128,9 +128,9 @@ load_posts = (posts_div, num, username) => {
                         })
                     })
                     if(post.liked === 1){
-                        post_div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
+                        post_div.innerHTML = post_div.innerHTML.replace(`${post.likes}<br>`,`${post.likes - 1}<br>`)
                     } else {
-                        post_div.innerHTML = div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
+                        post_div.innerHTML = post_div.innerHTML.replace(`${post.likes}<br>`,`${post.likes + 1}<br>`)
                     }
                     // if(post.liked === 1){
                     //     post.liked = 0
