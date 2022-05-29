@@ -52,6 +52,7 @@ load_posts = (posts_div, num, username) => {
     .then(data => {
         data.posts.forEach(post => {
             console.log('Creating')
+            console.log(post)
             const post_div = document.createElement('div')
             post_div.className = 'post-div'
             const b = document.createElement('b')
