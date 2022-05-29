@@ -163,7 +163,7 @@ def profile_page(request, username):
 # API Route to get Following
 @login_required
 def following_posts(request, num):
-    username = request.user
+    username = request.user.username
     print(request.user)
     user = User.objects.get(username = username)
     followingUsers = user.followingUser.all()
