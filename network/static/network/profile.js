@@ -46,7 +46,15 @@ document.addEventListener('DOMContentLoaded', () => {
         //     })
         // })
         const follow_button = document.querySelector('#follow-button')
-        follow_button.addEventListener('click', handleClick())
+        follow_button.addEventListener('click', () => {
+            fetch(`/follow/${poster_username}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    follow: followValue
+                })
+            })
+            load_data(poster_username)
+        })
     } catch(e) {
         console.log(e)
         page_div.innerHTML = 'Please log in to view the posts'
