@@ -226,6 +226,9 @@ def follow(request, username):
     followingUsers = [followingUser.username for followingUser in followingUsers]
     print(followingUsers)
     print('Accessed Follow')
+    print(request)
+    print(request.method)
+    print(request.body)
     if request.method == 'PUT':
         data = json.loads(request.body)
         follow = int(data.get('follow', ''))
