@@ -218,6 +218,7 @@ def like(request, id):
         return HttpResponse(status=204)
 
 # API Route to Follow a user
+@csrf_exempt
 @login_required
 def follow(request, username):
     username = username.strip()
