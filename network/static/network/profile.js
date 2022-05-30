@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     } catch(e) {
         console.log(e)
-        page_div.innerHTML = 'Please log in to view the posts'
+        page_div.innerHTML = 'Please log in to view the Profile'
     }
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
