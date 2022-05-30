@@ -45,6 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         //         })
         //     })
         // })
+        const follow_button = document.querySelector('#follow-button')
+        follow_button.onclick = handleClick
     } catch(e) {
         console.log(e)
         page_div.innerHTML = 'Please log in to view the posts'
