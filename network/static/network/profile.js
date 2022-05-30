@@ -55,10 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             setTimeout(function () {
                 load_data(poster_username)
-            }, 500)
+            }, 200)
             setTimeout(function () {
                 window.scrollTo(window.scrollX, y)
-            }, 1200)
+            }, 900)
         })
     } catch(e) {
         console.log(e)
