@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
             page_num -= 1
         })
         follow_form = document.querySelector('#follow-form')
-        follow_form.onSubmit = () => {
+        follow_form.addEventListener('submit', () => {
             fetch(`/follow/${poster_username}`, {
                 method: 'PUT',
                 body: JSON.stringify({
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(result => {
                 console.log(result);
             });
-        }
+        })
     } catch(e) {
         console.log(e)
         page_div.innerHTML = 'Please log in to view the posts'
