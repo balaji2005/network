@@ -10,7 +10,7 @@
         <h4 id="poster-username">{{ username }}</h4>
         <b>Followers: </b><span id="follower-count"></span><br>
         <b>Following: </b><span id="following-count"></span>
-        <form id="follow-form" style="width: 90px;" onsubmit="handleSubmit">
+        <form id="follow-form" style="width: 90px;" onsubmit="handleSubmit()">
             {% csrf_token %}
             <input type="hidden" id="follow" name="follow">
             <!-- <submit class="btn btn-outline-primary" id="follow-button" style="display: none;"></submit> -->
