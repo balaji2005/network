@@ -36,15 +36,15 @@ document.addEventListener('DOMContentLoaded', () => {
             load_posts(posts_div, page_num-1, poster_username)
             page_num -= 1
         })
-        follow_form = document.querySelector('#follow-form')
-        follow_form.addEventListener('submit', () => {
-            fetch(`/follow/${poster_username}`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    follow: followValue
-                })
-            })
-        })
+        // follow_form = document.querySelector('#follow-form')
+        // follow_form.addEventListener('submit', () => {
+        //     fetch(`/follow/${poster_username}`, {
+        //         method: 'PUT',
+        //         body: JSON.stringify({
+        //             follow: followValue
+        //         })
+        //     })
+        // })
     } catch(e) {
         console.log(e)
         page_div.innerHTML = 'Please log in to view the posts'
@@ -241,6 +241,15 @@ load_data = (username) => {
         //     console.log('getting data')
         //     load_data(username)
         // }
+    })
+}
+
+handleSubmit = () => {
+    fetch(`/follow/${poster_username}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            follow: followValue
+        })
     })
 }
 
