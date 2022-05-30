@@ -227,7 +227,8 @@ def follow(request, username):
     print(followingUsers)
     print('Accessed Follow')
     if request.method == 'PUT':
-        follow = int(request.PUT.get('follow'))
+        data = json.loads(request.body)
+        follow = int(data.get('follow', ''))
         if follow == 0:
             print('Unfollowed')
             user.follower.remove(request.user)
