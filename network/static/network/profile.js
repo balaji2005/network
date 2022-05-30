@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
     },700);
+    console.log(follow_form.onsubmit)
 
 })
 
