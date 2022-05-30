@@ -225,8 +225,9 @@ def follow(request, username):
     followingUsers = user.followingUser.all()
     followingUsers = [followingUser.username for followingUser in followingUsers]
     print(followingUsers)
-    if request.method == 'POST':
-        follow = int(request.POST.get('follow'))
+    print('Accessed Follow')
+    if request.method == 'PUT':
+        follow = int(request.PUT.get('follow'))
         if follow == 0:
             print('Unfollowed')
             user.follower.remove(request.user)
@@ -238,6 +239,7 @@ def follow(request, username):
         user.save()
         print(user.follower.all(), 'following or unfollowing')
         return HttpResponse(status=204)
+    return HttpResponse(status = 404)
 # fetch(`/emails/${email.id}`, {
 # method: 'PUT',
 # body: JSON.stringify({
