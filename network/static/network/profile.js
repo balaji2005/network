@@ -53,7 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     follow: followValue
                 })
             })
-            load_data(poster_username)
+            setTimeout(function () {
+                load_data(poster_username)
+            }, 500)
+            setTimeout(function () {
+                window.scrollTo(window.scrollX, y)
+            }, 1200)
         })
     } catch(e) {
         console.log(e)
@@ -61,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     setTimeout(function(){
         window.scrollTo(window.scrollX, y)
-    },700);
+    }, 700);
     // console.log(follow_form.onsubmit)
 
 })
